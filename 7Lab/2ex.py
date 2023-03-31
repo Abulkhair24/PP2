@@ -9,7 +9,7 @@ background_color = (255, 255, 255)
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption(window_title)
 pygame.mixer.init()
-music_file = "my_song.mp3"
+music_file = "7Lab/music/3787_new-rington.ru_.mp3"
 pygame.mixer.music.load(music_file)
 key_play_pause = pygame.K_SPACE
 key_stop = pygame.K_s
