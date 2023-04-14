@@ -40,7 +40,7 @@ while True:
 
     # Rotate the clock hands based on the current time
     minute_hand_rotated = pygame.transform.rotate(minute_hand, -minutes * 6)
-    second_hand_rotated = pygame.transform.rotate(second_hand, -seconds * 6)
+    second_hand_rotated = pygame.transform.rotate(second_hand, -seconds * 6 - 96)
 
     # Set the new positions of the clock hands
     minute_hand_rect = minute_hand_rotated.get_rect(center=minute_hand_rect.center)
