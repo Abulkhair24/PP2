@@ -1,50 +1,60 @@
 import pygame
-import sys
 import time
 
-# Initialize Pygame
 pygame.init()
 
-# Set the size of the window
-window_size = (1500, 1500)
-screen = pygame.display.set_mode(window_size)
+# Set up the window
+screen_width = 400
+screen_height = 400
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Mickey Mouse Clock")
 
-# Load the image of Mickey Mouse
-mickey_image = pygame.image.load('7Lab/images/mickeyclock.jpeg')
-mickey_rect = mickey_image.get_rect(center=(250, 250))
+# Load the images for the clock hands
+mickey =  pygame.image.load("mickeyclock.jpeg")
+mickey = pygame.transform.scale(mickey, screen.get_rect().size)
+minute_hand = pygame.image.load("8ef54cc2-176c-4ee7-9f99-53a1650a8eec-transformed.png")
+second_hand = pygame.image.load("8ef54cc2-176c-4ee7-9f99-53a1650a8eec-transformed.png")
 
-# Set the clock font and size
-clock_font = pygame.font.SysFont('comicsansms', 60)
+# Set the origin point for the clock hands
+minute_hand = pygame.transform.scale(minute_hand, ((minute_hand.get_rect().size[0] * 0.5), minute_hand.get_rect().size[1] * 0.5))
+second_hand = pygame.transform.scale(second_hand, ((second_hand.get_rect().size[0] * 0.5), second_hand.get_rect().size[1] * 0.2))
+minute_hand_rect = minute_hand.get_rect(center=(screen_width//2, screen_height//2))
+second_hand_rect = second_hand.get_rect(center=(screen_width//2, screen_height//2))
+# minute_hand = pygame.transform.scale(minute_hand, ((minute_hand.get_rect().size[0] * 0.3), minute_hand.get_rect().size[1] * 0.3))
 
-# Set the initial angle of the hands
-minute_angle = 0
-second_angle = 0
+# Set the clock font and font size
+clock_font = pygame.font.Font(None, 50)
 
-# Run the game loop
+# Main game loop
 while True:
+    # Handle events (such as quitting the game) here
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
-
-    # Get the current time
+            quit()
+    screen.blit(mickey, (0, 0))
+    # Get the current time in seconds and minutes
     current_time = time.localtime()
-    minutes = current_time.tm_min
     seconds = current_time.tm_sec
+    minutes = current_time.tm_min
 
-    # Calculate the angle of the hands
-    minute_angle = -6 * minutes
-    second_angle = -6 * seconds
+    # Rotate the clock hands based on the current time
+    minute_hand_rotated = pygame.transform.rotate(minute_hand, -minutes * 6)
+    second_hand_rotated = pygame.transform.rotate(second_hand, -seconds * 6)
 
-    # Rotate the hands
-    minute_hand = pygame.transform.rotate(mickey_image, minute_angle)
-    second_hand = pygame.transform.rotate(mickey_image, second_angle)
+    # Set the new positions of the clock hands
+    minute_hand_rect = minute_hand_rotated.get_rect(center=minute_hand_rect.center)
+    second_hand_rect = second_hand_rotated.get_rect(center=second_hand_rect.center)
 
-    # Blit the hands on the screen
-    screen.fill((255, 255, 255))
-    screen.blit(minute_hand, mickey_rect)
-    screen.blit(second_hand, mickey_rect)
+    # Clear the screen and draw the clock hands
+    # screen.fill((255, 255, 255))
+    screen.blit(minute_hand_rotated, minute_hand_rect)
+    screen.blit(second_hand_rotated, second_hand_rect)
 
-    # Update the display
+    # Display the current time in the top left corner
+    current_time_str = f"{minutes:02}:{seconds:02}"
+    current_time_text = clock_font.render(current_time_str, True, (0, 0, 0))
+    screen.blit(current_time_text, (10, 10))
+
+    # Update the screen
     pygame.display.update()
-    pygame.time.delay(1000)  # Wait for 1 second before updating the clock
