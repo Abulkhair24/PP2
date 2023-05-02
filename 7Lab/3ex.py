@@ -5,7 +5,9 @@ pygame.init()
 
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
-
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+color = GREEN
 
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
@@ -26,7 +28,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 screen.fill(WHITE)
 
 
-pygame.draw.circle(screen, RED, (ball_x, ball_y), BALL_RADIUS)
+pygame.draw.circle(screen, color, (ball_x, ball_y), BALL_RADIUS)
 
 
 pygame.display.update()
@@ -63,7 +65,11 @@ while running:
             
             
             screen.fill(WHITE)
-            pygame.draw.circle(screen, RED, (ball_x, ball_y), BALL_RADIUS)
+            pygame.draw.circle(screen, color, (ball_x, ball_y), BALL_RADIUS)
+            if (ball_y-BALL_RADIUS)==0:
+                color = BLUE
+            if (ball_y+BALL_RADIUS)==500:
+                color = RED
             pygame.display.update()
 
 

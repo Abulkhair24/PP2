@@ -1,38 +1,39 @@
 import pygame
-import os
 
 pygame.init()
 
-window_title = "My Music Player"
-window_size = (640, 480)
-background_color = (255, 255, 255)
-screen = pygame.display.set_mode(window_size)
-pygame.display.set_caption(window_title)
-pygame.mixer.init()
-music_file = "7Lab/music/3787_new-rington.ru_.mp3"
-pygame.mixer.music.load(music_file)
-key_play_pause = pygame.K_SPACE
-key_stop = pygame.K_s
-key_next = pygame.K_RIGHT
-key_previous = pygame.K_LEFT
-key_quit = pygame.K_q
-pygame.mixer.music.play()
-playing = True
-while playing:
+music_list = ["music/3787_new-rington.ru_.mp3", "music/3813_new-rington.ru_.mp3"]
+current_music = 0
+screen = pygame.display.set_mode((400,600))
+pygame.mixer.music.load(music_list[current_music])
+
+key_map = {
+    pygame.K_SPACE: "play_pause",
+    pygame.K_s: "stop",
+    pygame.K_n: "next",
+    pygame.K_p: "previous"
+}
+
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            playing = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == key_play_pause:
-                if pygame.mixer.music.get_busy():
-                    pygame.mixer.music.pause()
-                else:
-                    pygame.mixer.music.unpause()
-            elif event.key == key_stop:
-                pygame.mixer.music.stop()
-            elif event.key == key_next:
-                pass  # TODO: Implement this
-            elif event.key == key_previous:
-                pass  # TODO: Implement this
-            elif event.key == key_quit:
-                pygame.quit()
+            quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key in key_map:
+                if key_map[event.key] == "play_pause":
+                    if pygame.mixer.music.get_busy():
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.unpause()
+                elif key_map[event.key] == "stop":
+                    pygame.mixer.music.stop()
+                elif key_map[event.key] == "next":
+                    current_music = (current_music + 1) % len(music_list)
+                    pygame.mixer.music.load(music_list[current_music])
+                    pygame.mixer.music.play()
+                elif key_map[event.key] == "previous":
+                    current_music = (current_music - 1) % len(music_list)
+                    pygame.mixer.music.load(music_list[current_music])
+                    pygame.mixer.music.play()
+                    
+    pygame.time.Clock().tick(30)
