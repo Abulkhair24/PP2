@@ -28,7 +28,7 @@ font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-background = pygame.image.load("AnimatedStreet.png")
+background = pygame.image.load("9Lab/AnimatedStreet.png")
 
 #Create a white screen 
 DISPLAYSURF = pygame.display.set_mode((400,600))
@@ -39,7 +39,7 @@ pygame.display.set_caption("Game")
 class Enemy(pygame.sprite.Sprite):
       def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("Enemy.png")
+        self.image = pygame.image.load("9Lab/Enemy.png")
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40,SCREEN_WIDTH-40), 0)
 
@@ -55,7 +55,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("Player.png")
+        self.image = pygame.image.load("9Lab/Player.png")
         self.rect = self.image.get_rect()
         self.rect.center = (160, 520)
        
@@ -96,8 +96,9 @@ while True:
             pygame.quit()
             sys.exit()
 
-
+    DISPLAYSURF.fill(WHITE)
     DISPLAYSURF.blit(background, (0,0))
+    
     scores = font_small.render(str(SCORE), True, BLACK)
     DISPLAYSURF.blit(scores, (10,10))
 
