@@ -114,9 +114,9 @@ print("Спасибо, готовы играть? ")
 check_ready = input()
 connect = psycopg2.connect( 
     host = "localhost",
-    database = "testb",
+    database = "database102",
     user = "postgres",
-    password = "password1"
+    password = "lampa2004"
 )
 cur = connect.cursor()
 cur.execute(f"SELECT record FROM snake_data WHERE name = '{name}' AND surname = '{surname}'")
@@ -137,7 +137,7 @@ points = 0
 point_font = pygame.font.SysFont("Vergana", 30)
 level_font = pygame.font.SysFont("Vergana", 30)
 main_screen = pygame.display.set_mode((700, 700))
-image = pygame.image.load("background.png")
+image = pygame.image.load("10Lab/task2/background.png")
 image = pygame.transform.scale(image, main_screen.get_rect().size)
 some_snake = Snake(main_screen.get_rect().size)
 level = 1
@@ -232,8 +232,8 @@ while True:
         # main_screen.fill(pygame.Color(159,241 , 220))
         main_screen.blit(image, (0, 0))
         some_snake.paint(main_screen)
-        pic_coin = point_font.render("Score: " + str(points), True, pygame.Color("blue"))
-        pic_level = level_font.render("Level: " + str(level), True, pygame.Color("yellow"))
+        pic_coin = point_font.render("Score: " + str(points), True, pygame.Color("red"))
+        pic_level = level_font.render("Level: " + str(level), True, pygame.Color("blue"))
         main_screen.blit(pic_coin, (some_snake.size_of_main_screen[0] - 95, 18))
         main_screen.blit(pic_level, (some_snake.size_of_main_screen[0] - 92, 45))
         some_snake.move()

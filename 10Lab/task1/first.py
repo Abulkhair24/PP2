@@ -2,9 +2,9 @@ import psycopg2
 import csv
 connect = psycopg2.connect( 
     host = "localhost",
-    database = "testb",
+    database = "database10",
     user = "postgres",
-    password = "password1"
+    password = "lampa2004"
 )
 cur = connect.cursor()
 go_to = "SOME"
@@ -63,7 +63,7 @@ while go_to != "STOP":
     elif go_to == "5":
         for i in range(10):
             print()
-        file = open("data.csv", "r")
+        file = open("10Lab/task1/data.csv", "r")
         file = csv.reader(file)
         next(file)
         for value in file:

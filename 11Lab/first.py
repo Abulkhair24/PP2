@@ -2,9 +2,9 @@ import psycopg2
 import csv
 connect = psycopg2.connect( 
     host = "localhost",
-    database = "testb",
+    database = "database10",
     user = "postgres",
-    password = "password1"
+    password = "lampa2004"
 )
 def function_for_checking_of_user(name, surname, tel):
     flag = False
