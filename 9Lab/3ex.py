@@ -24,8 +24,6 @@ font=pygame.font.SysFont('arial', 36)
 font_small = pygame.font.SysFont("Verdana", 20)
 
 
-background = pygame.image.load("9Lab/AnimatedStreet.png")
-
 #creating classes
 class player(pygame.sprite.Sprite):
     def __init__(self):
@@ -131,11 +129,11 @@ while not done:
 
 #To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
-          pygame.mixer.Sound('crash.wav').play()
+          pygame.mixer.Sound('9Lab/crash.wav').play()
           time.sleep(0.5)
                     
           screen.fill(RED)
-          screen.blit(game_over, (30,250))
+          background.blit(game_over, (30,250))
            
           pygame.display.update()
           for entity in all_sprites:
@@ -144,7 +142,6 @@ while not done:
           pygame.quit()
           sys.exit()
         
-    screen.blit(background, (5,0))
     scores = font_small.render(str(num_m), True, BLACK)
     screen.blit(scores, (10,10))
     
