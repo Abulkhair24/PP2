@@ -121,6 +121,7 @@ connect = psycopg2.connect(
 cur = connect.cursor()
 cur.execute(f"SELECT record FROM snake_data WHERE name = '{name}' AND surname = '{surname}'")
 rec_data = cur.fetchall()
+m=0
 some_score = 0
 exists_flag = True
 if not rec_data:
@@ -197,10 +198,10 @@ while True:
             main_screen.blit(score_overall, (main_screen.get_rect().center[0] - 130, main_screen.get_rect().center[1]))
             pygame.display.update()
             if exists_flag:
-                if points > some_score:
-                    cur.execute(f"UPDATE snake_data SET record = '{points}' WHERE name = '{name}' AND surname = '{surname}'")
+                if points > int(some_score):
+                    cur.execute(f"UPDATE snake_data SET record = {points} WHERE name = '{name}' AND surname = '{surname}'")
             else:
-                cur.execute(f"INSERT INTO snake_data (name,surname, record) VALUES ('{name}', '{surname}', {points})")
+                cur.execute(f"INSERT INTO snake_data (name, surname, user_score, record) VALUES ('{name}', '{surname}', '{points}', '{some_score}')")
             connect.commit()
             time.sleep(3)
             pygame.quit()
